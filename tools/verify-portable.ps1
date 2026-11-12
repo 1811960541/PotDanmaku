@@ -32,7 +32,8 @@ foreach ($line in [System.IO.File]::ReadAllLines((Join-Path $packageRoot 'files.
 }
 $releaseInfo = Get-Content -LiteralPath (Join-Path $packageRoot 'release-info.json') -Raw | ConvertFrom-Json
 $executable = Join-Path $packageRoot 'PotDanmaku.App.exe'
-if ([System.Diagnostics.FileVersionInfo]::GetVersionInfo($executable).ProductVersion -ne $releaseInfo.Version -or
+$expectedProductVersion = if ($releaseInfo.ExecutableProductVersion) { $releaseInfo.ExecutableProductVersion } else { $releaseInfo.Version }
+if ([System.Diagnostics.FileVersionInfo]::GetVersionInfo($executable).ProductVersion -ne $expectedProductVersion -or
     (Get-FileHash -LiteralPath $executable -Algorithm SHA256).Hash -ne $releaseInfo.SourceExecutableSha256) {
     throw '版本或程序二进制校验失败。'
 }

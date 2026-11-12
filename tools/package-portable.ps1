@@ -10,8 +10,9 @@ if ($outputRootPath.Equals($sourceRoot, [StringComparison]::OrdinalIgnoreCase) -
         [StringComparison]::OrdinalIgnoreCase)) { throw '输出目录必须位于发布源目录之外。' }
 $sourceExe = Join-Path $sourceRoot 'PotDanmaku.App.exe'
 if (-not (Test-Path -LiteralPath $sourceExe)) { throw '缺少发布程序，请先运行 tools/publish.ps1。' }
-$version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($sourceExe).ProductVersion
-if ($version -notmatch '^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?$') { throw '发布程序的版本格式无效。' }
+$productVersion = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($sourceExe).ProductVersion
+if ($productVersion -notmatch '^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?(?:\+[a-zA-Z0-9.-]+)?$') { throw '发布程序的版本格式无效。' }
+$version = ($productVersion -split '\+', 2)[0]
 $runtimeConfig = Get-Content -LiteralPath (Join-Path $sourceRoot 'PotDanmaku.App.runtimeconfig.json') -Raw | ConvertFrom-Json
 if (-not $runtimeConfig.runtimeOptions.includedFrameworks -or -not (Test-Path -LiteralPath (Join-Path $sourceRoot 'coreclr.dll'))) {
     throw '输入必须是 Windows x64 自包含发布目录。'
@@ -26,6 +27,8 @@ if ((Test-Path -LiteralPath $packageDirectory) -or (Test-Path -LiteralPath $zipP
 foreach ($file in Get-ChildItem -LiteralPath $sourceRoot -File -Recurse) {
     $relative = [System.IO.Path]::GetRelativePath($sourceRoot, $file.FullName)
     if ($relative -match '^(data|logs|diagnostics)[\\/]' -or $relative -eq 'portable.flag' -or $file.Extension -eq '.pdb') { continue }
+    # Ship end-user documentation; engineering history stays in the source repository.
+    if ($relative -eq '开发计划.md' -or ($relative -match '^docs[\\/]' -and $relative.Replace('\', '/') -ne 'docs/使用说明.md')) { continue }
     $destination = Join-Path $packageDirectory $relative
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($destination)) | Out-Null
     [System.IO.File]::Copy($file.FullName, $destination, $false)
@@ -39,7 +42,7 @@ foreach ($asset in Get-ChildItem -LiteralPath $assetsRoot -File) {
     } else { [System.IO.File]::Copy($asset.FullName, $destination, $true) }
 }
 $releaseInfo = [ordered]@{
-    Product = 'PotDanmaku'; Version = $version; RuntimeIdentifier = 'win-x64'; Edition = 'portable'
+    Product = 'PotDanmaku'; Version = $version; ExecutableProductVersion = $productVersion; RuntimeIdentifier = 'win-x64'; Edition = 'portable'
     CreatedUtc = [DateTimeOffset]::UtcNow.ToString('o'); SelfContained = $true; PortableDefault = $true
     IncludedFrameworks = @($runtimeConfig.runtimeOptions.includedFrameworks)
     SourceExecutableSha256 = (Get-FileHash -LiteralPath $sourceExe -Algorithm SHA256).Hash

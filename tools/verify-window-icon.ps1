@@ -76,8 +76,9 @@ $checks = foreach ($size in @(16, 20, 24, 32, 40, 48, 64)) {
     $check
 }
 if ($before.ArtworkWidth -ge 24) { throw 'The alpha.5 small-icon regression was not reproduced.' }
+$executableProductVersion = [Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $packageRoot 'PotDanmaku.App.exe')).ProductVersion
 $report = [ordered]@{
-    Version = [Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $packageRoot 'PotDanmaku.App.exe')).ProductVersion
+    Version = ($executableProductVersion -split '\+', 2)[0]; ExecutableProductVersion = $executableProductVersion
     SourceResourceType = $image.GetType().Name; Decoder = $image.Decoder.GetType().Name
     FrameSizes = @($image.Decoder.Frames.PixelWidth); Alpha5Reproduced = $true
     BeforeAt32 = $before; FixedIconChecks = @($checks); Passed = $true

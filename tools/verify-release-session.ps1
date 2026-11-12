@@ -70,8 +70,9 @@ $checks = foreach ($phase in $phases) {
             PauseMetrics = if (Test-Path -LiteralPath $metricsPath) { Get-Content -LiteralPath $metricsPath -Raw | ConvertFrom-Json } else { $null } }
     } finally { $process.Dispose() }
 }
+$executableProductVersion = [Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $packageRoot 'PotDanmaku.App.exe')).ProductVersion
 $report = [ordered]@{
-    Version = [Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $packageRoot 'PotDanmaku.App.exe')).ProductVersion
+    Version = ($executableProductVersion -split '\+', 2)[0]; ExecutableProductVersion = $executableProductVersion
     Passed = $true; PackageDirectory = $packageRoot; ValidationDirectory = $validationRoot; Checks = @($checks)
     Notes = '测试驱动在项目外运行，并校验实际加载的 App/Core/Formats 哈希及包内运行环境；没有修改原发布目录。'
 }
