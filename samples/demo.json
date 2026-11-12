@@ -1,0 +1,15 @@
+{
+  "schema": "potdanmaku/v1",
+  "timeUnit": "ms",
+  "comments": [
+    { "time": 0, "text": "顶部固定弹幕", "mode": "top" },
+    { "time": 200, "text": "道友请留步", "color": "#5EEAD4" },
+    { "time": 1000, "text": "这条弹幕随视频时间播放" },
+    { "time": 2000, "text": "反向弹幕 →", "mode": "reverse", "color": "#FFD380" },
+    { "time": 3000, "text": "底部固定弹幕（在所选区域内）", "mode": "bottom" },
+    { "time": 4000, "text": "暂停后位置也会冻结" },
+    { "time": 6000, "text": "跳转会重新查询正确弹幕" },
+    { "time": 9000, "text": "中文 & emoji 🎉", "opacity": 0.9 },
+    { "time": 12000, "text": "顶部四分之一 · 慢速 · 小字号" }
+  ]
+}

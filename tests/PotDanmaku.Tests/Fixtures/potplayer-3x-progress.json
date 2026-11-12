@@ -1,0 +1,442 @@
+[
+  {
+    "ObservedSeconds": 0.0,
+    "PositionMs": 254012.0
+  },
+  {
+    "ObservedSeconds": 0.11047294968739152,
+    "PositionMs": 255518.0
+  },
+  {
+    "ObservedSeconds": 0.2513386500068009,
+    "PositionMs": 255518.0
+  },
+  {
+    "ObservedSeconds": 0.3613083497621119,
+    "PositionMs": 255518.0
+  },
+  {
+    "ObservedSeconds": 0.5036040497943759,
+    "PositionMs": 255518.0
+  },
+  {
+    "ObservedSeconds": 0.5996406497433782,
+    "PositionMs": 257030.0
+  },
+  {
+    "ObservedSeconds": 0.7574355499818921,
+    "PositionMs": 257030.0
+  },
+  {
+    "ObservedSeconds": 0.899516049772501,
+    "PositionMs": 257030.0
+  },
+  {
+    "ObservedSeconds": 1.010111149866134,
+    "PositionMs": 257030.0
+  },
+  {
+    "ObservedSeconds": 1.152870049700141,
+    "PositionMs": 258506.0
+  },
+  {
+    "ObservedSeconds": 1.2481017499230802,
+    "PositionMs": 258506.0
+  },
+  {
+    "ObservedSeconds": 1.35948419990018,
+    "PositionMs": 258506.0
+  },
+  {
+    "ObservedSeconds": 1.5012632498983294,
+    "PositionMs": 258506.0
+  },
+  {
+    "ObservedSeconds": 1.611034699715674,
+    "PositionMs": 260012.0
+  },
+  {
+    "ObservedSeconds": 1.7529279999434948,
+    "PositionMs": 260012.0
+  },
+  {
+    "ObservedSeconds": 1.8622056499589235,
+    "PositionMs": 260012.0
+  },
+  {
+    "ObservedSeconds": 2.0038792497944087,
+    "PositionMs": 260012.0
+  },
+  {
+    "ObservedSeconds": 2.147349199745804,
+    "PositionMs": 261536.0
+  },
+  {
+    "ObservedSeconds": 2.2583511997945607,
+    "PositionMs": 261536.0
+  },
+  {
+    "ObservedSeconds": 2.399732999969274,
+    "PositionMs": 261536.0
+  },
+  {
+    "ObservedSeconds": 2.5077347001060843,
+    "PositionMs": 261536.0
+  },
+  {
+    "ObservedSeconds": 2.6498053499963135,
+    "PositionMs": 263036.0
+  },
+  {
+    "ObservedSeconds": 2.7620155001059175,
+    "PositionMs": 263036.0
+  },
+  {
+    "ObservedSeconds": 2.8580669998191297,
+    "PositionMs": 263036.0
+  },
+  {
+    "ObservedSeconds": 2.9998768498189747,
+    "PositionMs": 263036.0
+  },
+  {
+    "ObservedSeconds": 3.109243799932301,
+    "PositionMs": 264515.0
+  },
+  {
+    "ObservedSeconds": 3.2488947499077767,
+    "PositionMs": 264515.0
+  },
+  {
+    "ObservedSeconds": 3.359839899931103,
+    "PositionMs": 264515.0
+  },
+  {
+    "ObservedSeconds": 3.5014739998150617,
+    "PositionMs": 264515.0
+  },
+  {
+    "ObservedSeconds": 3.611256599891931,
+    "PositionMs": 266009.0
+  },
+  {
+    "ObservedSeconds": 3.751217149896547,
+    "PositionMs": 266009.0
+  },
+  {
+    "ObservedSeconds": 3.862203700002283,
+    "PositionMs": 266009.0
+  },
+  {
+    "ObservedSeconds": 4.003465899731964,
+    "PositionMs": 266009.0
+  },
+  {
+    "ObservedSeconds": 4.097280549816787,
+    "PositionMs": 266009.0
+  },
+  {
+    "ObservedSeconds": 4.253840999910608,
+    "PositionMs": 267524.0
+  },
+  {
+    "ObservedSeconds": 4.362124199979007,
+    "PositionMs": 267524.0
+  },
+  {
+    "ObservedSeconds": 4.502666449872777,
+    "PositionMs": 267524.0
+  },
+  {
+    "ObservedSeconds": 4.612965649925172,
+    "PositionMs": 269024.0
+  },
+  {
+    "ObservedSeconds": 4.7560163997113705,
+    "PositionMs": 269024.0
+  },
+  {
+    "ObservedSeconds": 4.897420699708164,
+    "PositionMs": 269024.0
+  },
+  {
+    "ObservedSeconds": 5.009432999882847,
+    "PositionMs": 269024.0
+  },
+  {
+    "ObservedSeconds": 5.151897300034761,
+    "PositionMs": 270524.0
+  },
+  {
+    "ObservedSeconds": 5.2620907998643816,
+    "PositionMs": 270524.0
+  },
+  {
+    "ObservedSeconds": 5.357076549902558,
+    "PositionMs": 270524.0
+  },
+  {
+    "ObservedSeconds": 5.499116049846634,
+    "PositionMs": 270524.0
+  },
+  {
+    "ObservedSeconds": 5.60895079979673,
+    "PositionMs": 272012.0
+  },
+  {
+    "ObservedSeconds": 5.752658399986103,
+    "PositionMs": 272012.0
+  },
+  {
+    "ObservedSeconds": 5.862285049865022,
+    "PositionMs": 272012.0
+  },
+  {
+    "ObservedSeconds": 6.004889549920335,
+    "PositionMs": 272012.0
+  },
+  {
+    "ObservedSeconds": 6.099607150070369,
+    "PositionMs": 272012.0
+  },
+  {
+    "ObservedSeconds": 6.257385550066829,
+    "PositionMs": 273533.0
+  },
+  {
+    "ObservedSeconds": 6.400138949975371,
+    "PositionMs": 273533.0
+  },
+  {
+    "ObservedSeconds": 6.509657499846071,
+    "PositionMs": 273533.0
+  },
+  {
+    "ObservedSeconds": 6.6520268998574466,
+    "PositionMs": 275036.0
+  },
+  {
+    "ObservedSeconds": 6.761866649845615,
+    "PositionMs": 275036.0
+  },
+  {
+    "ObservedSeconds": 6.8566519499290735,
+    "PositionMs": 275036.0
+  },
+  {
+    "ObservedSeconds": 7.010565049946308,
+    "PositionMs": 275036.0
+  },
+  {
+    "ObservedSeconds": 7.150195299880579,
+    "PositionMs": 276524.0
+  },
+  {
+    "ObservedSeconds": 7.261377799790353,
+    "PositionMs": 276524.0
+  },
+  {
+    "ObservedSeconds": 7.40139264985919,
+    "PositionMs": 276524.0
+  },
+  {
+    "ObservedSeconds": 7.511634949827567,
+    "PositionMs": 276524.0
+  },
+  {
+    "ObservedSeconds": 7.606806249823421,
+    "PositionMs": 278006.0
+  },
+  {
+    "ObservedSeconds": 7.749416299862787,
+    "PositionMs": 278006.0
+  },
+  {
+    "ObservedSeconds": 7.860339849954471,
+    "PositionMs": 278006.0
+  },
+  {
+    "ObservedSeconds": 8.002041949890554,
+    "PositionMs": 278006.0
+  },
+  {
+    "ObservedSeconds": 8.097568199969828,
+    "PositionMs": 278006.0
+  },
+  {
+    "ObservedSeconds": 8.255017949733883,
+    "PositionMs": 279527.0
+  },
+  {
+    "ObservedSeconds": 8.348447849974036,
+    "PositionMs": 279527.0
+  },
+  {
+    "ObservedSeconds": 8.506068699993193,
+    "PositionMs": 279527.0
+  },
+  {
+    "ObservedSeconds": 8.59955504979007,
+    "PositionMs": 279527.0
+  },
+  {
+    "ObservedSeconds": 8.756203549914062,
+    "PositionMs": 281033.0
+  },
+  {
+    "ObservedSeconds": 8.898296699859202,
+    "PositionMs": 281033.0
+  },
+  {
+    "ObservedSeconds": 9.00757999997586,
+    "PositionMs": 281033.0
+  },
+  {
+    "ObservedSeconds": 9.148584599839523,
+    "PositionMs": 282524.0
+  },
+  {
+    "ObservedSeconds": 9.257050149841234,
+    "PositionMs": 282524.0
+  },
+  {
+    "ObservedSeconds": 9.39914339990355,
+    "PositionMs": 282524.0
+  },
+  {
+    "ObservedSeconds": 9.51041695009917,
+    "PositionMs": 282524.0
+  },
+  {
+    "ObservedSeconds": 9.651670249877498,
+    "PositionMs": 284012.0
+  },
+  {
+    "ObservedSeconds": 9.763275349978358,
+    "PositionMs": 284012.0
+  },
+  {
+    "ObservedSeconds": 9.85674239997752,
+    "PositionMs": 284012.0
+  },
+  {
+    "ObservedSeconds": 9.998730649705976,
+    "PositionMs": 284012.0
+  },
+  {
+    "ObservedSeconds": 10.11039164988324,
+    "PositionMs": 285518.0
+  },
+  {
+    "ObservedSeconds": 10.25128884986043,
+    "PositionMs": 285518.0
+  },
+  {
+    "ObservedSeconds": 10.361290849978104,
+    "PositionMs": 285518.0
+  },
+  {
+    "ObservedSeconds": 10.504443150013685,
+    "PositionMs": 285518.0
+  },
+  {
+    "ObservedSeconds": 10.598845599917695,
+    "PositionMs": 287030.0
+  },
+  {
+    "ObservedSeconds": 10.753740699961782,
+    "PositionMs": 287030.0
+  },
+  {
+    "ObservedSeconds": 10.848592649912462,
+    "PositionMs": 287030.0
+  },
+  {
+    "ObservedSeconds": 11.007084749871865,
+    "PositionMs": 287030.0
+  },
+  {
+    "ObservedSeconds": 11.14969254983589,
+    "PositionMs": 288524.0
+  },
+  {
+    "ObservedSeconds": 11.25859974976629,
+    "PositionMs": 288524.0
+  },
+  {
+    "ObservedSeconds": 11.400358499959111,
+    "PositionMs": 288524.0
+  },
+  {
+    "ObservedSeconds": 11.507881799712777,
+    "PositionMs": 288524.0
+  },
+  {
+    "ObservedSeconds": 11.647278199903667,
+    "PositionMs": 290012.0
+  },
+  {
+    "ObservedSeconds": 11.758098700083792,
+    "PositionMs": 290012.0
+  },
+  {
+    "ObservedSeconds": 11.899052849970758,
+    "PositionMs": 290012.0
+  },
+  {
+    "ObservedSeconds": 12.00886945007369,
+    "PositionMs": 290012.0
+  },
+  {
+    "ObservedSeconds": 12.151096949819475,
+    "PositionMs": 291548.0
+  },
+  {
+    "ObservedSeconds": 12.25788145000115,
+    "PositionMs": 291548.0
+  },
+  {
+    "ObservedSeconds": 12.400140599813312,
+    "PositionMs": 291548.0
+  },
+  {
+    "ObservedSeconds": 12.508135299896821,
+    "PositionMs": 291548.0
+  },
+  {
+    "ObservedSeconds": 12.648692749906331,
+    "PositionMs": 293036.0
+  },
+  {
+    "ObservedSeconds": 12.75849164975807,
+    "PositionMs": 293036.0
+  },
+  {
+    "ObservedSeconds": 12.901372599881142,
+    "PositionMs": 293036.0
+  },
+  {
+    "ObservedSeconds": 13.012546950019896,
+    "PositionMs": 293036.0
+  },
+  {
+    "ObservedSeconds": 13.106541299959645,
+    "PositionMs": 294506.0
+  },
+  {
+    "ObservedSeconds": 13.247491199988872,
+    "PositionMs": 294506.0
+  },
+  {
+    "ObservedSeconds": 13.357757299905643,
+    "PositionMs": 294506.0
+  },
+  {
+    "ObservedSeconds": 13.499336499953642,
+    "PositionMs": 294506.0
+  },
+  {
+    "ObservedSeconds": 13.610191349871457,
+    "PositionMs": 296009.0
+  }
+]

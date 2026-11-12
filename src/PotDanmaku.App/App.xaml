@@ -1,0 +1,13 @@
+﻿<Application x:Class="PotDanmaku.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PotDanmaku.App"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <!-- ImageSource conversion preserves the ICO decoder and all frame sizes for Window.Icon. -->
+        <ImageSource x:Key="AppIcon">pack://application:,,,/Assets/PotDanmaku.ico</ImageSource>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Icon" Value="{StaticResource AppIcon}" />
+        </Style>
+    </Application.Resources>
+</Application>

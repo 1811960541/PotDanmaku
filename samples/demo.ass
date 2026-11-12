@@ -1,0 +1,22 @@
+[Script Info]
+Title: PotDanmaku sample
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+Timer: 100.0000
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Microsoft YaHei UI,16,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1,0,8,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{\pos(960,30)}顶部固定弹幕
+Dialogue: 0,0:00:00.20,0:00:06.20,Default,,0,0,0,,{\move(2100,30,-200,30)\c&HD4EA5E&}道友请留步
+Dialogue: 0,0:00:01.00,0:00:07.00,Default,,0,0,0,,{\move(2100,60,-200,60)}这条弹幕随视频时间播放
+Dialogue: 0,0:00:02.00,0:00:08.00,Default,,0,0,0,,{\move(-200,90,2100,90)}反向弹幕 →
+Dialogue: 0,0:00:03.00,0:00:08.00,Default,,0,0,0,,{\pos(960,1000)}底部固定弹幕（在所选区域内）
+Dialogue: 0,0:00:04.00,0:00:10.00,Default,,0,0,0,,{\move(2100,120,-200,120)}暂停后位置也会冻结
+Dialogue: 0,0:00:06.00,0:00:12.00,Default,,0,0,0,,{\move(2100,150,-200,150)}跳转会重新查询正确弹幕
+Dialogue: 0,0:00:09.00,0:00:15.00,Default,,0,0,0,,{\move(2100,180,-200,180)}中文 & emoji 🎉
+Dialogue: 0,0:00:12.00,0:00:18.00,Default,,0,0,0,,{\move(2100,210,-200,210)}顶部四分之一 · 慢速 · 小字号

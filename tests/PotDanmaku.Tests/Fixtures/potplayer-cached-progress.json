@@ -1,0 +1,230 @@
+[
+  {
+    "ObservedSeconds": 0.0,
+    "PositionMs": 0.0
+  },
+  {
+    "ObservedSeconds": 0.1422977,
+    "PositionMs": 0.0
+  },
+  {
+    "ObservedSeconds": 0.2381852,
+    "PositionMs": 0.0
+  },
+  {
+    "ObservedSeconds": 0.3486571,
+    "PositionMs": 496.0
+  },
+  {
+    "ObservedSeconds": 0.4917872,
+    "PositionMs": 496.0
+  },
+  {
+    "ObservedSeconds": 0.6017802,
+    "PositionMs": 496.0
+  },
+  {
+    "ObservedSeconds": 0.7431898,
+    "PositionMs": 496.0
+  },
+  {
+    "ObservedSeconds": 0.8873882,
+    "PositionMs": 992.0
+  },
+  {
+    "ObservedSeconds": 0.9975538,
+    "PositionMs": 992.0
+  },
+  {
+    "ObservedSeconds": 1.1393023,
+    "PositionMs": 992.0
+  },
+  {
+    "ObservedSeconds": 1.2484228,
+    "PositionMs": 992.0
+  },
+  {
+    "ObservedSeconds": 1.3903563,
+    "PositionMs": 1500.0
+  },
+  {
+    "ObservedSeconds": 1.4998809,
+    "PositionMs": 1500.0
+  },
+  {
+    "ObservedSeconds": 1.6416232,
+    "PositionMs": 1500.0
+  },
+  {
+    "ObservedSeconds": 1.7512434,
+    "PositionMs": 1500.0
+  },
+  {
+    "ObservedSeconds": 1.8937862,
+    "PositionMs": 2000.0
+  },
+  {
+    "ObservedSeconds": 2.0508956,
+    "PositionMs": 2000.0
+  },
+  {
+    "ObservedSeconds": 2.1448006,
+    "PositionMs": 2000.0
+  },
+  {
+    "ObservedSeconds": 2.2386263,
+    "PositionMs": 2000.0
+  },
+  {
+    "ObservedSeconds": 2.3966676,
+    "PositionMs": 2491.0
+  },
+  {
+    "ObservedSeconds": 2.4910726,
+    "PositionMs": 2491.0
+  },
+  {
+    "ObservedSeconds": 2.6473334,
+    "PositionMs": 2491.0
+  },
+  {
+    "ObservedSeconds": 2.7408117,
+    "PositionMs": 2491.0
+  },
+  {
+    "ObservedSeconds": 2.8991516,
+    "PositionMs": 2992.0
+  },
+  {
+    "ObservedSeconds": 2.9910069,
+    "PositionMs": 2992.0
+  },
+  {
+    "ObservedSeconds": 3.1471091,
+    "PositionMs": 2992.0
+  },
+  {
+    "ObservedSeconds": 3.2419002,
+    "PositionMs": 2992.0
+  },
+  {
+    "ObservedSeconds": 3.397577,
+    "PositionMs": 3494.0
+  },
+  {
+    "ObservedSeconds": 3.4932389,
+    "PositionMs": 3494.0
+  },
+  {
+    "ObservedSeconds": 3.6488025,
+    "PositionMs": 3494.0
+  },
+  {
+    "ObservedSeconds": 3.7427274,
+    "PositionMs": 3494.0
+  },
+  {
+    "ObservedSeconds": 3.898268,
+    "PositionMs": 3994.0
+  },
+  {
+    "ObservedSeconds": 3.9911303,
+    "PositionMs": 3994.0
+  },
+  {
+    "ObservedSeconds": 4.1447863,
+    "PositionMs": 3994.0
+  },
+  {
+    "ObservedSeconds": 4.2385138,
+    "PositionMs": 3994.0
+  },
+  {
+    "ObservedSeconds": 4.3969224,
+    "PositionMs": 4495.0
+  },
+  {
+    "ObservedSeconds": 4.4920621,
+    "PositionMs": 4495.0
+  },
+  {
+    "ObservedSeconds": 4.649144,
+    "PositionMs": 4495.0
+  },
+  {
+    "ObservedSeconds": 4.7430917,
+    "PositionMs": 4495.0
+  },
+  {
+    "ObservedSeconds": 4.9004937,
+    "PositionMs": 4992.0
+  },
+  {
+    "ObservedSeconds": 4.9952653,
+    "PositionMs": 4992.0
+  },
+  {
+    "ObservedSeconds": 5.1519868,
+    "PositionMs": 4992.0
+  },
+  {
+    "ObservedSeconds": 5.2468672,
+    "PositionMs": 4992.0
+  },
+  {
+    "ObservedSeconds": 5.4014919,
+    "PositionMs": 5498.0
+  },
+  {
+    "ObservedSeconds": 5.4943062,
+    "PositionMs": 5498.0
+  },
+  {
+    "ObservedSeconds": 5.6514853,
+    "PositionMs": 5498.0
+  },
+  {
+    "ObservedSeconds": 5.7443675,
+    "PositionMs": 5498.0
+  },
+  {
+    "ObservedSeconds": 5.8978417,
+    "PositionMs": 5996.0
+  },
+  {
+    "ObservedSeconds": 5.991234,
+    "PositionMs": 5996.0
+  },
+  {
+    "ObservedSeconds": 6.1488625,
+    "PositionMs": 5996.0
+  },
+  {
+    "ObservedSeconds": 6.2412177,
+    "PositionMs": 5996.0
+  },
+  {
+    "ObservedSeconds": 6.3973269,
+    "PositionMs": 6493.0
+  },
+  {
+    "ObservedSeconds": 6.4928593,
+    "PositionMs": 6493.0
+  },
+  {
+    "ObservedSeconds": 6.6479478,
+    "PositionMs": 6493.0
+  },
+  {
+    "ObservedSeconds": 6.742294,
+    "PositionMs": 6493.0
+  },
+  {
+    "ObservedSeconds": 6.9000093,
+    "PositionMs": 6999.0
+  },
+  {
+    "ObservedSeconds": 6.9945656,
+    "PositionMs": 6999.0
+  }
+]
