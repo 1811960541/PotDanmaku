@@ -4,7 +4,8 @@ Push-Location -LiteralPath $projectRoot
 try {
     dotnet test PotDanmaku.sln -c Release
     if ($LASTEXITCODE -ne 0) { throw '测试失败，停止发布。' }
-    dotnet publish src/PotDanmaku.App -c Release -r win-x64 --self-contained true -o artifacts/PotDanmaku-win-x64
+    # Normalize source paths in distributable assemblies.
+    dotnet publish src/PotDanmaku.App -c Release -r win-x64 --self-contained true -p:ContinuousIntegrationBuild=true -o artifacts/PotDanmaku-win-x64
     if ($LASTEXITCODE -ne 0) { throw '发布失败。' }
     Get-FileHash -LiteralPath 'artifacts/PotDanmaku-win-x64/PotDanmaku.App.exe' -Algorithm SHA256 |
         Select-Object Algorithm, Hash | ConvertTo-Json | Set-Content -LiteralPath 'artifacts/PotDanmaku-win-x64/checksum.json' -Encoding utf8
