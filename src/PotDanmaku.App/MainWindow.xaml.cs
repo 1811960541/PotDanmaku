@@ -17,6 +17,8 @@ namespace PotDanmaku.App;
 
 public partial class MainWindow : Window
 {
+    private const double PlaybackSampleLifetime = 0.25;
+    private const double MediaIdentityGrace = 0.5;
     private sealed record LayoutRequest(DanmakuDocument Document, float Width, LayoutOptions Options);
     private sealed record WindowObservation(double MonotonicSeconds, long TargetHandle, long ForegroundHandle,
         bool TargetForeground, bool TargetMinimized, bool TargetCloaked, bool TargetTopmost, bool OverlayTopmost,
@@ -34,6 +36,7 @@ public partial class MainWindow : Window
     private long generation;
     private bool running, closed;
     private string? connectedTitle;
+    private double lastValidPlaybackAt = double.NegativeInfinity;
     private Native.Rect lastRect;
     private readonly List<PlayerReading> samples = [];
     private readonly List<WindowObservation> windowSamples = [];
@@ -214,12 +217,20 @@ public partial class MainWindow : Window
             {
                 using var periodic = new PeriodicTimer(TimeSpan.FromMilliseconds(50));
                 double nextAspectProbe = 0;
-                double nextMediaProbe = 0;
+                double lastMediaProbe = double.NegativeInfinity;
+                string? lastProbedTitle = null;
                 do
                 {
                     double rate = Volatile.Read(ref manualRate);
                     var result = client.Read(rate > 0 ? rate : null); if (source.IsCancellationRequested) break; Volatile.Write(ref reading, result);
-                    if (PotPlayerClient.Now >= nextMediaProbe) { probe.Request(); nextMediaProbe = PotPlayerClient.Now + 0.25; }
+                    // A new title can indicate a switch. Confirm the path sooner without blanking on pause labels.
+                    double probeInterval = string.Equals(result.Title, lastProbedTitle, StringComparison.Ordinal) ? 0.25 : 0.1;
+                    if (PotPlayerClient.Now - lastMediaProbe >= probeInterval)
+                    {
+                        probe.Request();
+                        lastProbedTitle = result.Title;
+                        lastMediaProbe = PotPlayerClient.Now;
+                    }
                     // A connection can happen before PotPlayer has finished opening the video.
                     if (Volatile.Read(ref aspect) <= 0 && result.Sample?.State is PlaybackState.Playing or PlaybackState.Paused && PotPlayerClient.Now >= nextAspectProbe)
                     {
@@ -260,12 +271,17 @@ public partial class MainWindow : Window
         preview.Show();
     }
     private void StopClick(object sender, RoutedEventArgs e) { autoConnectSuspended = true; StopSession(); StatusText.Text = "已停止。点击连接可恢复自动跟随。"; }
-    private void HideScene() { overlay?.Hide(); renderer?.Update(new(false, 960, 540, false, null, 0, 1, true, null, ++generation)); }
+    private void HideScene()
+    {
+        lastValidPlaybackAt = double.NegativeInfinity;
+        overlay?.Hide(); renderer?.Update(new(false, 960, 540, false, null, 0, 1, true, null, ++generation));
+    }
     private void StopSession()
     {
         SaveVideoProfile(); ++mediaRevision; importing?.Cancel();
         running = false; polling?.Cancel(); pollingTask?.GetAwaiter().GetResult(); polling?.Dispose(); polling = null; pollingTask = null;
         mediaProbe?.Dispose(); mediaProbe = null; activeVideo = null; lastMediaSequence = 0;
+        lastMediaConfirmedAt = double.NegativeInfinity;
         mediaReady = false; switchingMedia = false; savedProfile = null; trackedProfile = null;
         player = null; Volatile.Write(ref reading, null); preview?.Close(); preview = null; HideScene(); lastVisibleHitTest = null;
     }
@@ -313,12 +329,22 @@ public partial class MainWindow : Window
         lastMonitor = monitor; lastDpi = dpi;
         if (player != null)
         {
-            if (current?.Sample == null || current.Sample.State == PlaybackState.Stopped || PotPlayerClient.Now - current.Sample.ObservedSeconds > 0.25) visible = false;
             if (current != null && (current.Status == "播放器已关闭" || current.Status == "窗口已属于其他进程"))
             { StopSession(); StatusText.Text = current.Status + "。重新打开播放器后连接即可。"; return; }
-            if (current != null && !string.Equals(current.Title, connectedTitle, StringComparison.Ordinal))
-            { visible = false; }
-            StatusText.Text = current == null ? "正在读取播放器…" : $"{current.Status} · {(current.Sample?.Rate ?? 0):F2}× · {(visible ? "正在叠加" : "等待播放器可见或有效进度")}\n{current.Title}";
+            double now = PotPlayerClient.Now;
+            var playback = current?.Sample;
+            // Even an incomplete sample can explicitly report that playback stopped.
+            if (current?.RawState == (int)PlaybackState.Stopped || playback?.State == PlaybackState.Stopped)
+                lastValidPlaybackAt = double.NegativeInfinity;
+            else if (playback != null) lastValidPlaybackAt = playback.ObservedSeconds;
+            bool canHoldFrame = playback == null && overlay.Visible;
+            visible &= (playback != null || canHoldFrame) && now - lastValidPlaybackAt <= PlaybackSampleLifetime;
+
+            bool recentMedia = activeVideo != null && now - lastMediaConfirmedAt <= MediaIdentityGrace;
+            if (!recentMedia && current != null && !string.Equals(current.Title, connectedTitle, StringComparison.Ordinal))
+                visible = false;
+            string displayStatus = !visible ? "等待播放器可见或有效进度" : canHoldFrame ? "暂时保留当前弹幕" : "正在叠加";
+            StatusText.Text = current == null ? "正在读取播放器…" : $"{current.Status} · {(playback?.Rate ?? 0):F2}× · {displayStatus}\n{current.Title}";
         }
         else StatusText.Text = visible ? "独立预览中" : "预览不可见，弹幕层已隐藏";
         if (!Native.GetClientRect(hwnd, out var rect)) visible = false;
@@ -358,14 +384,14 @@ public partial class MainWindow : Window
             ParseDouble(OffsetText.Text, 0, -86400, 86400) * 1000, (float)(OpacityControl.Value / 100), PreserveColor.IsChecked == true, current, generation, previewStartMs, FrameLimit));
         var health = renderer.Health;
         MetricsText.Text = $"显示 {health.Active} 条 · 媒体时间 {health.MediaMs / 1000:F2} s\n提交帧数 {health.Frames:N0} · 提交间隔 P95 {health.P95Ms:F2} ms · 查询 {current?.RequestMs ?? 0:F2} ms\n提交统计不等同于显示器实际帧率。";
-        if (++tickCount % 2 == 0)
-        {
-            if (current != null && samples.Count < 20_000) samples.Add(current);
-            if (windowSamples.Count < 20_000) windowSamples.Add(new(PotPlayerClient.Now, hwnd.ToInt64(), foreground.ToInt64(),
+        bool sampleTick = ++tickCount % 2 == 0;
+        if (sampleTick && current != null && samples.Count < 20_000) samples.Add(current);
+        // A hide/show can last only one UI tick. Keep visibility changes even between regular samples.
+        if (windowSamples.Count < 20_000 && (sampleTick || windowSamples.Count == 0 || windowSamples[^1].OverlayVisible != overlay.Visible))
+            windowSamples.Add(new(PotPlayerClient.Now, hwnd.ToInt64(), foreground.ToInt64(),
                 targetForeground, Native.IsIconic(hwnd), Native.IsCloaked(hwnd), OverlayHost.IsTopmost(hwnd), OverlayHost.IsTopmost(overlay.Handle),
                 overlay.Visible, Native.GetWindow(hwnd, 3) == overlay.Handle,
                 OverlayHost.IsTopmost(hwnd) == OverlayHost.IsTopmost(overlay.Handle), foreground == foregroundAfterPlacement));
-        }
     }
     private void ChangeOffset(double change) => OffsetText.Text = (ParseDouble(OffsetText.Text, 0, -86400, 86400) + change).ToString("F1", CultureInfo.InvariantCulture);
     private void OffsetLessClick(object sender, RoutedEventArgs e) => ChangeOffset(-0.1);

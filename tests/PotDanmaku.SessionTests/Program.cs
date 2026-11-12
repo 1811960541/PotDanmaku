@@ -6,7 +6,9 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using PotDanmaku.App;
+using PotDanmaku.App.Interop;
 using PotDanmaku.App.Player;
+using PotDanmaku.Core;
 
 internal static class Program
 {
@@ -33,6 +35,10 @@ internal static class Program
                 if (args is ["--real-pause", var pauseExecutable])
                 {
                     await RealPauseCase.Run(root, pauseExecutable, passed); exit = 0; return;
+                }
+                if (args is ["--pause-overlay"])
+                {
+                    await PauseOverlayCase.Run(root, passed); exit = 0; return;
                 }
                 string a = Video(root, "Season 1/第01集.mkv"), b = Video(root, "Season 2/第01集.mkv"), c = Video(root, "第03集.mkv");
                 string ax = Path.ChangeExtension(a, ".xml"), bj = Path.ChangeExtension(b, ".json"), custom = Path.Combine(root, "手动关联.xml");
@@ -111,12 +117,20 @@ internal sealed class FakePlayer : IDisposable
 {
     [StructLayout(LayoutKind.Sequential)] private struct CopyData { public nuint Command; public int Length; public nint Data; }
     [DllImport("user32.dll", EntryPoint = "SendMessageW")] private static extern nint SendMessage(nint hwnd, uint message, nint sender, ref CopyData payload);
+    [DllImport("user32.dll", EntryPoint = "SetWindowTextW", CharSet = CharSet.Unicode)] private static extern bool SetWindowText(nint hwnd, string title);
     private readonly HwndSource source;
     public string MediaPath { get; set; }
-    public PlayerTarget Target => new(source.Handle, Environment.ProcessId, "same title");
-    public FakePlayer(string path)
+    public PlaybackState State { get; set; } = PlaybackState.Playing;
+    public int Speed { get; set; } = 3000;
+    public bool ReplyToPath { get; set; } = true;
+    public int PathReplies { get; private set; }
+    public PlayerTarget Target => new(source.Handle, Environment.ProcessId, Native.Title(source.Handle));
+    public void ChangeTitle(string title) { if (!SetWindowText(source.Handle, title)) throw new InvalidOperationException("Could not change test player title."); }
+    public FakePlayer(string path, bool visible = false)
     {
-        MediaPath = path; source = new HwndSource(new HwndSourceParameters("same title") { WindowStyle = 0 }); source.AddHook(Receive);
+        MediaPath = path;
+        source = new HwndSource(new HwndSourceParameters("same title", 640, 360) { WindowStyle = visible ? 0x10cf0000 : 0 });
+        source.AddHook(Receive);
     }
     private nint Receive(nint hwnd, int message, nint command, nint parameter, ref bool handled)
     {
@@ -124,11 +138,13 @@ internal sealed class FakePlayer : IDisposable
         handled = true;
         if (command == 0x6020)
         {
+            if (!ReplyToPath) return 0;
+            PathReplies++;
             byte[] bytes = Encoding.UTF8.GetBytes(MediaPath + "\0"); nint memory = Marshal.AllocHGlobal(bytes.Length);
             try { Marshal.Copy(bytes, 0, memory, bytes.Length); var data = new CopyData { Command = 0x6020, Length = bytes.Length, Data = memory }; return SendMessage(parameter, 0x4A, hwnd, ref data); }
             finally { Marshal.FreeHGlobal(memory); }
         }
-        return (int)command switch { 0x5004 => 2000, 0x5006 => 2, 0x5015 => 3000, 0x6030 => 1920, 0x6031 => 1080, _ => 0 };
+        return (int)command switch { 0x5004 => 2000, 0x5006 => (int)State, 0x5015 => Speed, 0x6030 => 1920, 0x6031 => 1080, _ => 0 };
     }
     public void Dispose() { source.RemoveHook(Receive); source.Dispose(); }
 }

@@ -73,6 +73,12 @@ internal sealed class RenderLoop : IDisposable
                 {
                     cancellation.Token.WaitHandle.WaitOne(20); last = lastDrawStart = 0; continue;
                 }
+                // The UI keeps the window visible briefly on a missing sample. Leave the last
+                // surface in place and don't advance the displayed clock before pause is confirmed.
+                if (!current.Preview && current.Reading?.Sample == null)
+                {
+                    cancellation.Token.WaitHandle.WaitOne(10); continue;
+                }
                 double mediaMs = current.Preview ? current.PreviewStartMs + (now - origin) * 1000 : clock.Read(now);
                 double commentMs = mediaMs - current.OffsetMs;
                 var layout = current.Layout;

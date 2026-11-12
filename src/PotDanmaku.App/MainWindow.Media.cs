@@ -12,6 +12,7 @@ public partial class MainWindow
     private PlayerMediaProbe? mediaProbe;
     private string? activeVideo;
     private long mediaRevision, lastMediaSequence;
+    private double lastMediaConfirmedAt = double.NegativeInfinity;
     private bool mediaReady, switchingMedia, hasFile, manualPending, connecting, discoveryAllowed, autoConnectSuspended;
     private double nextDiscovery, profileChangedAt;
     private VideoProfile? trackedProfile, savedProfile;
@@ -41,6 +42,7 @@ public partial class MainWindow
     {
         if (player == null || mediaProbe?.Latest is not { } identity || identity.Sequence == lastMediaSequence) return;
         lastMediaSequence = identity.Sequence;
+        lastMediaConfirmedAt = identity.ObservedSeconds;
         // A fresh filename reply also confirms harmless title/metadata changes for the same video.
         connectedTitle = Volatile.Read(ref reading)?.Title ?? connectedTitle;
         if (!string.Equals(activeVideo, identity.Path, StringComparison.OrdinalIgnoreCase))

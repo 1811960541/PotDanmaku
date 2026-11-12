@@ -6,7 +6,7 @@ using PotDanmaku.Core;
 
 namespace PotDanmaku.App.Player;
 
-internal sealed record MediaIdentity(string? Path, long Sequence);
+internal sealed record MediaIdentity(string? Path, long Sequence, double ObservedSeconds);
 
 // PotPlayer's string API replies with a bounded UTF-8 WM_COPYDATA payload.
 internal sealed class PlayerMediaProbe : IDisposable
@@ -43,9 +43,9 @@ internal sealed class PlayerMediaProbe : IDisposable
             byte[] bytes = new byte[payload.Length];
             if (bytes.Length > 0) Marshal.Copy(payload.Data, bytes, 0, bytes.Length);
             string raw = new UTF8Encoding(false, true).GetString(bytes).TrimEnd('\0');
-            Volatile.Write(ref latest, new(VideoFiles.Normalize(raw), ++sequence));
+            Volatile.Write(ref latest, new(VideoFiles.Normalize(raw), ++sequence, PotPlayerClient.Now));
         }
-        catch (DecoderFallbackException) { Volatile.Write(ref latest, new(null, ++sequence)); }
+        catch (DecoderFallbackException) { Volatile.Write(ref latest, new(null, ++sequence, PotPlayerClient.Now)); }
         return 1;
     }
     public void Dispose() { receiver.RemoveHook(Receive); receiver.Dispose(); }

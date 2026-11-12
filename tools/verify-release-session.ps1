@@ -28,9 +28,12 @@ foreach ($name in @('PotDanmaku.SessionTests.exe', 'PotDanmaku.SessionTests.dll'
 # Keep the test driver, but run the frozen application assemblies and its bundled runtime.
 [IO.File]::Copy((Join-Path $packageRoot 'PotDanmaku.App.runtimeconfig.json'),
     (Join-Path $validationRoot 'PotDanmaku.SessionTests.runtimeconfig.json'), $false)
-$phases = @([pscustomobject]@{ Name = 'associations-and-switching'; Arguments = @() })
+$phases = @(
+    [pscustomobject]@{ Name = 'associations-and-switching'; Arguments = @(); RequiredCase = 'initial automatic XML match' }
+    [pscustomobject]@{ Name = 'pause-overlay'; Arguments = @('--pause-overlay'); RequiredCase = 'transient pause query failure keeps the overlay visible' }
+)
 if ($RealPlayerExecutable) {
-    $phases += [pscustomobject]@{ Name = 'real-pause-1x-3x'; Arguments = @('--real-pause', [IO.Path]::GetFullPath($RealPlayerExecutable)) }
+    $phases += [pscustomobject]@{ Name = 'real-pause-1x-3x'; Arguments = @('--real-pause', [IO.Path]::GetFullPath($RealPlayerExecutable)); RequiredCase = 'real PotPlayer overlay remains visible across pause and resume' }
 }
 $checks = foreach ($phase in $phases) {
     $casesRoot = Join-Path $validationRoot 'session-cases'
@@ -53,6 +56,7 @@ $checks = foreach ($phase in $phases) {
         $resultPath = Join-Path $newCases[0].FullName 'verification.json'
         $result = Get-Content -LiteralPath $resultPath -Raw | ConvertFrom-Json
         if ($process.ExitCode -ne 0 -or -not $result.Passed) { throw ('发布会话检查失败，见 ' + $resultPath) }
+        if ($phase.RequiredCase -notin $result.Cases) { throw ('未执行要求的会话检查，请重新构建测试驱动：' + $phase.Name) }
         if ($result.Assemblies.Count -ne 3) { throw '检查报告缺少实际加载的应用程序集。' }
         foreach ($assembly in $result.Assemblies) {
             $expectedLocation = Join-Path $validationRoot ($assembly.Name + '.dll')

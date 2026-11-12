@@ -4,9 +4,9 @@
 
 为 PotPlayer 添加本地弹幕。支持 XML、JSON 和 ASS，弹幕通过独立透明窗口显示，跟随播放、暂停、跳转和倍速，保留播放器原有的对白字幕。
 
-[下载 Windows x64 便携版](https://github.com/1811960541/PotDanmaku/releases/download/v0.2.0-alpha.1/PotDanmaku-0.2.0-alpha.1-portable-win-x64.zip) · [发行说明](https://github.com/1811960541/PotDanmaku/releases/tag/v0.2.0-alpha.1) · [使用指南](docs/使用说明.md)
+[下载 Windows x64 便携版](https://github.com/1811960541/PotDanmaku/releases/download/v0.2.0-alpha.2/PotDanmaku-0.2.0-alpha.2-portable-win-x64.zip) · [发行说明](https://github.com/1811960541/PotDanmaku/releases/tag/v0.2.0-alpha.2) · [使用指南](docs/使用说明.md)
 
-当前版本：**0.2.0-alpha.1**，预发布版本。
+当前版本：**0.2.0-alpha.2**（预发布），修复暂停时弹幕短暂消失的问题。
 
 ## 功能
 
